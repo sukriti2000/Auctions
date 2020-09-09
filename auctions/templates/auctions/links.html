@@ -1,0 +1,187 @@
+{% extends "auctions/layout.html" %}
+
+{% block style %}
+<style>
+	body{
+		margin: 0;
+		padding: 0;
+	}
+  .container{
+    margin-top: 100px;
+    display: flex;
+    width: 100vw;
+
+  }
+  
+  .left {
+      flex: 30%
+      max-width:30%
+      margin:20px;
+      margin-left: -150px;
+  }
+  .middle{
+      flex: 40%;
+      max-width: 40%;
+      margin:20px;
+      margin-top: 100px;
+      margin-left: 80px;
+  }
+  .right{
+       flex: 30%
+      max-width:30%
+      margin:20px;
+      margin-top: 30px;
+  }
+  .image-area{
+    text-align: center;
+    margin-top: 100px;
+    width: 400px;
+    height: 300px;
+    padding: 80px;
+    border:0.7px solid #cccccc;
+  }
+  .image-area img{
+  	max-height: 200px;
+  	max-width: 200px;	
+  }
+  .info-area{
+    text-align: justify;
+    margin-top: 10px;
+    width: 400px;
+    height: auto;
+  }
+  .bid{
+  	padding-top: 20px;
+  	padding-left: 10px;
+    }
+  .bid input{
+    width: 200px;
+    margin-bottom: 5px;
+  }
+  .bid button{
+  	width: 100px;
+  	background-color: #660033;
+  	color: white;
+  	text-align: center;
+ 
+  	border:none;
+  	margin-left: 5px;
+  }
+  
+  .cart button{
+  	width: 300px;
+  	background-color: #660033;
+  	color: white;
+  	text-align: center;
+  	border-radius: 5px;
+  	border:none;
+  	margin-bottom: 5px;
+  }
+  
+  .experince h4,textarea,button{
+    margin-left: 10px;
+  }
+  .experience button{
+   	margin-left: 90px;
+   	border-radius: 5px;
+   	border:none;
+   	background-color: #660033;
+   	color: white;
+  }
+  
+  .last{
+    background-color:#f5e6ff;
+    margin-top: 60px;
+    height:300px;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    padding: 7%;
+  }
+  .comments{
+    height: 240px;
+    width: 400px;
+    overflow: scroll;
+    margin-top: 30px;
+    
+    
+
+  }
+  .comments  ul li{
+    list-style:none;
+
+    
+  }
+  .line{
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
+    padding: 5px;
+    border:0.7px solid #cccccc;
+    border-radius: 5px;
+    margin-bottom : 5px;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+<div class="left">
+  <div class="image-area">
+    <img src="{{detail.image}}">
+  </div>
+  <div class="info-area">
+    <h6 >PRODUCT INFO:</h6>
+      {{detail.description}}
+  </div>
+</div>
+<div class="middle">
+  <h1>{{detail.name}}</h1><br>
+  <h5 style="padding-left: 10px;padding-top: 10px;"> price : ${{detail.start_bid}}</h5>
+  <h5 style="padding-left: 10px;"> Current bid : ${{current.bid}}</h5><br>
+   
+  <div class="details">
+   <h6 style="margin-left: 15px;">Details:</h6>
+    <ul style="margin-left: 20px;">
+      <li>listed by: {{detail.user|title}}</li>
+      <li> category: {{detail.category}}</li>
+    </ul>
+  </div>
+  <form action="{% url 'place_bid' detail.name %}" method="post" class="bid">
+    <p>Your bid will be current bid.</p>
+    {% csrf_token %}
+    <input type="text" name="bid_placed" placeholder="place your bid here">
+    <button type="submit">Place Bid</button><br><br>
+  </form>
+  <form action="{% url 'add_watch' detail.name %}" class="cart">
+    <button type="submit">ADD TO WATCHLIST</button>
+  </form>
+</div>
+<div class="right">
+  {% if detail.user == request.user %}
+    <form action="{% url 'close_bid' detail.name %}" method="post">
+      {% csrf_token %}
+      <button type="submit" style="border-radius: 5px;background-color:#660033;color: white;border:none;float:right;" >Close Bid</button>
+    </form>
+  {% endif %}
+    <form action="{% url 'review' detail.name %}" method="post" class="experience" style="margin-top: 80px;">
+      <h4 style="margin-left: 10px;font-size: 30px;">Share your experience:</h4>
+      {% csrf_token %}
+      <textarea name="review" rows="4" cols="30" ></textarea><br>
+      <button type="submit">Submit</button>
+    </form>  
+  <div class="comments">
+    <ul style="margin-top: 30px ; padding-left: 0">
+      {% for i in com %}
+      <div class="line">
+        <li> {{i.user|title}}: {{i.comment}}</li>
+        
+       </div>
+      {% endfor %}
+    </ul>
+  </div>  
+</div>
+</div>
+<div class="last">
+  <h1> Secure & Safe Online Bidding With Fun Shopping</h1>
+  <p>Bidderboy.com is secured by 256 bit SSL encryption, has earned the McAfee SECURE certification. <br>Your privacy is highly protected. We process payments using RBI approved payment gateway <br>- CCAvenue & PayPal - a trusted international payment gateway.</p>
+</div>
+{% endblock %}

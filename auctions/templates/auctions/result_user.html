@@ -1,0 +1,16 @@
+{% extends "auctions/layout.html" %}
+{% block style %}
+<style>
+	.whole{
+		padding-top: 100px;
+		padding-left: 20px;
+	}
+</style>
+{% endblock %}
+{% block body %}
+<div class="whole">
+{% for i in mylist %}
+ <p>Congratulations  you have won <b>{{i.lists}}</b> at: ${{i.price}}</p>
+ {% endfor %}
+</div>
+{% endblock %}

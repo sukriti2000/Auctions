@@ -1,0 +1,14 @@
+{% extends "auctions/layout.html" %}
+{% block style %}
+<style>
+	.whole{
+		padding-top: 100px;
+		padding-left: 20px;
+	}
+</style>
+{% endblock %}
+{% block body %}
+<div class="whole">
+   <p>{{watchitem}} won by: {{user}} at: $ {{price}}.</h3>
+
+{% endblock %}

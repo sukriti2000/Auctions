@@ -1,0 +1,46 @@
+{% extends "auctions/layout.html" %}
+{% block style %}
+<style>
+.whole{
+	padding-top: 100px;
+}
+</style>
+{% endblock %}
+{% block body %}
+<div class="whole">
+
+	<h2>Add a new article</h2>
+<form action="{% url 'Items' %}" method="post">
+	{% csrf_token %}
+
+		<div class="form-group">
+		<input type="text" name="name" autofocus class="form-control" autocomplete="on" placeholder="Article name">
+	    </div>
+	    <div class="form-group">
+		<select name="Category" autofocus class="form-control" >
+			<option value="clothing">clothing</option>
+			<option value="shoes">shoes</option>
+			<option value="accessories">accessories</option>
+			<option value="electronics">electronics</option>
+			<option value="Health_and_beauty">Health and beauty</option>
+			<option value="sports">sports</option>
+			<option value="Home_and_garden">Home and Garden</option>
+			<option value="property">property</option>
+			<option value="antique">Antique</option>
+			<option value="limited">Limited</option>
+		</select>
+	    </div>
+	    <div class="form-group" >
+		<input type="url" name="image" autofocus placeholder="image url" class="form-control">
+	    </div>
+	    <div class="form-group">
+		<textarea rows="3" cols="25" name="description" autofocus class="form-control" placeholder="description"></textarea>
+	     </div>
+	     <div class="form-group">
+		<input type="number" name="start_bid" placeholder="starting bid" autofocus class="form-control">
+	     </div>
+		<button  class="btn btn-primary" type="submit">Submit</button>
+
+	</form>
+</div>
+{% endblock %}

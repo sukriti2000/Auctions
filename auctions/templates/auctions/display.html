@@ -1,0 +1,94 @@
+{% extends "auctions/layout.html" %}
+{% block style %}
+<style>
+ body{
+    margin: 0;
+    padding: 0;
+  }
+   .box-area{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+    width: 100vw;
+   }
+   .single-box{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap; 
+    flex-direction: column;
+    border-radius: 4px;
+    height:auto;
+    width: 300px;
+    background-color:#fff;
+    text-align: center;
+    margin:20px;
+    padding-top:10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
+    transition: 0.3sec;
+    border:1px solid  #bfbfbf;
+   }
+   .img-area{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 300px;
+    height: 300px;
+    padding: 50px;
+
+   }
+   .date{
+    background-color: #e6e6e6;
+    height: 50px;
+   }
+   .box-area a{
+    text-decoration:none;
+    color: black;
+   }
+   .single-box:hover{
+    background-color: #cccccc;
+    transition: 0.6sec;
+   }
+  button{
+    border-radius: 12px;
+    border:none;
+    background-color: grey;
+  }
+  button:hover{
+    background-color: white;
+  }
+</style>
+{% endblock %}
+{% block body %}
+  <div class="box-area">
+  	{% for link in type %}
+  	<a href="/details/{{link.name}}">
+     <div class="single-box">
+       <div class="des">
+         <h2>{{link.name|title}}</h2>
+         <hr>
+          <h6>Starting at : ${{link.start_bid}}</h6>
+          <div class="img-area"><img src="{{link.image}}" alt="{{link..name}}" style="max-height: 250px;max-width: 300px;"></div>
+         
+          
+        
+         <h6>{{i.category}}</h6>
+         <form action="{% url 'remove' link.name %}" method="post">
+        {% csrf_token %}
+        <button type="submit">remove</button>
+       </form>
+         <div class="date">
+         <hr>
+         
+         <h6>Created : {{link.date}}</h6>
+        
+       </div>
+       </div>
+
+     </div>
+    </a>
+{% endfor %}
+</div>
+{% endblock %}
