@@ -1,4 +1,4 @@
-Commerce:-
+What we can do on this website-
 1.User can upload an article for the bid.
 2.User can bid on various articles.
 3.User can make a collection of the items they need to buy later on and can remove too.
